@@ -17,6 +17,13 @@ exports.register = async (req, res) => {
             });
         }
 
+        if (!avatar) {
+            return res.status(400).json({
+                success: false,
+                message: "Please, select an avatar"
+            });
+        }
+
         const myCloud = await cloudinary.v2.uploader.upload(avatar, { folder: "avatars" });
 
         user = await User.create({
